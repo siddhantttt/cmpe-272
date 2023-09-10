@@ -1,0 +1,11 @@
+---
+- name: Undeploy Python Server on Port 8080
+  hosts: webserver-instances
+  become: yes
+  tasks:
+    - name: Stop Python Server
+      shell: systemctl stop python_http_server
+    - name: Undeploy resources
+      file:
+        path: /home/ubuntu/index.html
+        state: absent

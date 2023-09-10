@@ -1,0 +1,28 @@
+---
+- name: Start Python Web Servers
+  hosts: webserver-instances
+
+  tasks:
+    - name: Install python3
+      apt:
+        name: python3
+        state: present
+      become: yes
+
+    - name: Start Python Web Server
+      shell: systemctl start python_http_server
+      args:
+        executable: /bin/bash
+      become: yes
+
+    - name: Generate HTML file
+      copy:
+        content: |
+         <html>
+         <body>
+         Hello SJSU - {{ groups['webserver-instances'].index(inventory_hostname) + 2 }}
+         </body>
+         </html>
+        dest: /home/ubuntu/index.html
+
+
