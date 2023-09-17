@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Twitter Service Demo</title>
+</head>
+<body>
+    <h1>Twitter Service Demo</h1>
+
+    <h2>Get Authenticated User</h2>
+    <button onclick="getAuthenticatedUser()">Get User Info</button>
+    <div id="userInfo"></div>
+
+    <h2>Create a Tweet</h2>
+    <textarea id="tweetText" placeholder="Enter your tweet"></textarea>
+    <button onclick="createTweet()">Create Tweet</button>
+
+
+    <h2>Get User Tweets</h2>
+    <input id="userId" placeholder="Enter user ID">
+    <button onclick="getUserTweets()">Get User Tweets</button>
+    <div id="userTweets"></div>
+    
+    <h2>Delete a Tweet</h2>
+    <input id="tweetId" placeholder="Enter tweet ID">
+    <button onclick="deleteTweet()">Delete Tweet</button>
+
+
+    <script src="script.js"></script>
+</body>
+</html>
