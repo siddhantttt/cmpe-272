@@ -1,3 +1,4 @@
+//Code written by Prakhya Mylavaram
 // Function to make POST request and create a tweet
 function createTweet() {
     const tweetText = document.getElementById("tweetText").value;
