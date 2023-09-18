@@ -5,8 +5,11 @@ import os
 import requests
 from flask import Flask, request, jsonify
 from requests_oauthlib import OAuth1
+from flask import Flask
+from flask_cors import CORS
 
 app = Flask(__name__)
+CORS(app, origins="*")
 
 consumer_key = os.environ['TWITTER_CONSUMER_KEY']
 consumer_secret = os.environ['TWITTER_CONSUMER_SECRET']
@@ -28,10 +31,15 @@ def create_tweet():
     headers = {"Content-Type": "application/json"}
     response = requests.post("https://api.twitter.com/2/tweets", headers=headers, data=payload,
                              auth=auth)
+    print(response.content)
+    
 
     if response.status_code != 201:
         return jsonify({"error": response.json()}), 500
     return response.json()
+    if response.status_code != 200:
+        print(response.content)
+        return jsonify({"error": response.json()}), 500
 
 
 @app.route("/tweets/<tweet_id>", methods=["DELETE"])
