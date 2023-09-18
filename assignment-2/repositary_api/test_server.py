@@ -1,8 +1,10 @@
-#Author - Sai Mouna Bogireddy, test cases for server.py 
-import unittest
-from unittest.mock import MagicMock, patch
-from server import app, create_tweet, delete_tweet, get_user_tweets
 import json
+import unittest
+# Author - Sai Mouna Bogireddy, test cases for server.py
+from unittest.mock import MagicMock, patch
+
+from server import app, create_tweet, delete_tweet, get_user_tweets
+
 
 class TestServer(unittest.TestCase):
     def setUp(self):
@@ -18,11 +20,11 @@ class TestServer(unittest.TestCase):
 
     def test_create_tweet_failure_400(self):
         mock_response = self.mock_response({"error": "No tweet ID provided"}, 400)
-        tweet_text=""
+        tweet_text = ""
         with app.test_request_context('/tweets', json={"text": tweet_text}):
             response = create_tweet()
 
-        #expected_response = {"error": "No tweet ID provided"}
+        # expected_response = {"error": "No tweet ID provided"}
         print("response create tweet failure:", mock_response)
         self.assertEqual(response[1], 400)
 
@@ -45,7 +47,6 @@ class TestServer(unittest.TestCase):
         }
         self.assertEqual(response.status_code, 500)
         self.assertEqual(response.get_json(), expected_response)
-
 
     @patch('server.requests.post')
     def test_create_tweet(self, mock_post):
@@ -85,8 +86,6 @@ class TestServer(unittest.TestCase):
 
         self.assertEqual(status_code, 200)
 
-
-
     def test_delete_tweet_failure(self):
         tweet_id = ""
         mock_response = self.mock_response({"error": "No tweet ID provided"}, 400)
@@ -95,7 +94,7 @@ class TestServer(unittest.TestCase):
             response = delete_tweet(tweet_id)
 
         expected_response = {"error": "No tweet ID provided"}
-     
+
         self.assertEqual(response[1], 400)
 
     @patch('server.requests.delete')
@@ -106,7 +105,7 @@ class TestServer(unittest.TestCase):
 
         mock_delete.return_value = MagicMock(status_code=500, json=lambda: error_response)
 
-        tweet_id = "123456789"  
+        tweet_id = "123456789"
 
         with app.test_request_context(f'/tweets/{tweet_id}', method='DELETE'):
             response = delete_tweet(tweet_id)
@@ -124,7 +123,7 @@ class TestServer(unittest.TestCase):
         }
 
         mock_get.return_value = MagicMock(status_code=200, json=lambda: mock_response)
-        user_id="12345"
+        user_id = "12345"
 
         response = self.app.get('/users/me')
 
@@ -188,7 +187,6 @@ class TestServer(unittest.TestCase):
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.get_json(), mock_response)
 
-
     def test_get_tweets_400(self):
         user_id = ""
         mock_response = self.mock_response({"error": "No tweet ID provided"}, 400)
@@ -197,9 +195,9 @@ class TestServer(unittest.TestCase):
             response = get_user_tweets(user_id)
 
         expected_response = {"error": "No tweet ID provided"}
-     
+
         self.assertEqual(response[1], 400)
 
-   
+
 if __name__ == "__main__":
     unittest.main()
