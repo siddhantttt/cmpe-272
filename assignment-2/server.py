@@ -1,3 +1,4 @@
+#Author - Siddanth Nagpal
 import json
 import os
 
@@ -37,11 +38,12 @@ def create_tweet():
 def delete_tweet(tweet_id):
     if not tweet_id:
         return jsonify({"error": "No tweet ID provided"}), 400
-
+    #print("tweet_id:", tweet_id)
     response = requests.delete(f"https://api.twitter.com/2/tweets/{tweet_id}", auth=auth)
-
+    #print("tweet_id:",response)
     if response.status_code != 200:
-        return jsonify({"error": response.json()}), 500
+       return jsonify({"error": response.json()}), 500
+      # return {"error"}
 
     return jsonify({"message": "Tweet deleted successfully"}), 200
 
