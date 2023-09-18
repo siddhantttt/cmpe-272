@@ -1,11 +1,16 @@
-# Cmpe272
-### How to run
-### Start http server to access the UI: 
-python3 -m http.server
-this will start http server on port 8000. go to http://localhost:8000
-### Start python server for Tweets
-cd repository_api/
-python3 server.py
-this will start the python server
+# CMPE-272: Twitter Service
 
+## How to Run the Application
 
+### Starting the Python Server for Tweets
+
+1. Navigate to the `repository_api/` directory:
+    ```bash
+    cd repository_api/
+    ```
+
+2. Load environment variables and start the Flask application:
+    ```bash
+    source ./set_env_user2.sh && flask run
+    ```
+   This will start the Python server.
